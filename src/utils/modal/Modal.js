@@ -2,13 +2,16 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { CSSTransition } from "react-transition-group";
 import "./Modal.css";
+import "../loading-spinner/LoadingSpinner.css";
 
 const Modal = (props) => {
   const nodeRef = React.useRef(null);
 
   const closeOnEscapeKeyDown = (e) => {
-    if ((e.charCode || e.keyCode) === 27) {
-      props.onClose();
+    if (!props.isLoading) {
+      if ((e.charCode || e.keyCode) === 27) {
+        props.onClose();
+      }
     }
   };
 
@@ -17,7 +20,7 @@ const Modal = (props) => {
     return function cleanup() {
       document.body.removeEventListener("keydown", closeOnEscapeKeyDown);
     };
-  }, []);
+  }, [props.isLoading]);
 
   return ReactDOM.createPortal(
     <CSSTransition
@@ -27,7 +30,7 @@ const Modal = (props) => {
     >
       <div
         className={props.show ? "customModal enter-done" : "customModal exit"}
-        onClick={props.onClose}
+        onClick={!props.isLoading ? props.onClose : null}
         ref={nodeRef}
       >
         <div
@@ -48,17 +51,25 @@ const Modal = (props) => {
           <div className="customModal-body">{props.children}</div>
           <div className="customModal-footer flex justify-end items-center">
             <button
-              onClick={props.onClose}
+              onClick={!props.isLoading ? props.onClose : null}
               className="button btn btn-secondary ml-3"
             >
               Đóng
             </button>
-            <button
-              onClick={props.onSave}
-              className="button btn btn-primary ml-3"
-            >
-              Lưu
-            </button>
+            {!props.disabledButtonSave && (
+              <button
+                onClick={props.onSave}
+                // className="button btn btn-primary ml-3"
+                className={
+                  props.isLoading
+                    ? "button btn btn-primary ml-3 button__loading loading"
+                    : "button btn btn-primary ml-3 button__loading"
+                }
+                disabled={props.isLoading}
+              >
+                Lưu
+              </button>
+            )}
           </div>
         </div>
       </div>

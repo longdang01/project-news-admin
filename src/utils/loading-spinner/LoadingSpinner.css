@@ -1,0 +1,69 @@
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 10px solid #f3f3f3; /* Light grey */
+  border-top: 10px solid #383636; /* Blue */
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
+}
+
+.spinner-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 350px;
+}
+
+.button__loading {
+  position: relative;
+}
+/* 
+.button__loading:hover {
+  background-color: #ff6600;
+}
+
+.button__loading:focus {
+  outline: 0.05em dashed #ff6600;
+  outline-offset: 0.05em;
+} */
+
+.button__loading::after {
+  content: "";
+  display: block;
+  width: 1.2em;
+  height: 1.2em;
+  position: absolute;
+  left: calc(50% - 0.65em);
+  top: calc(50% - 0.65em);
+  border: 0.15em solid transparent;
+  border-right-color: white;
+  border-radius: 50%;
+  animation: button-anim 0.7s linear infinite;
+  opacity: 0;
+}
+
+@keyframes button-anim {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.button__loading.loading {
+  color: transparent;
+}
+
+.button__loading.loading::after {
+  opacity: 1;
+}

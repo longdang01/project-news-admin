@@ -11,7 +11,7 @@
   opacity: 0;
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 999;
 }
 
 .customModal.enter-done {
@@ -37,7 +37,7 @@
 }
 .customModal-content {
   /* width: 500px; */
-  width: 600px;
+  width: 650px;
   background-color: #fff;
   transition: all 0.3s ease-in-out;
   transform: translateY(-200px);
@@ -98,7 +98,8 @@
 }
 
 .customModal-body {
-  padding: 10px;
+  margin-top: 20px;
+  padding: 30px 10px 10px 10px;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
 }
